@@ -1,15 +1,16 @@
 import { toast } from 'sonner'
-import { IProudct } from '../interfaces/products'
-import { ICart } from '../lib/features/cartSlice'
+import { ICart, IProduct } from '../interfaces/products'
 
-export const addToCart = (cartItems: ICart[], newItem: IProudct): ICart[] => {
+export const addToCart = (cartItems: ICart[], newItem: IProduct): ICart[] => {
   const exists = cartItems.find((item) => item.id === newItem.id)
+
   if (exists) {
-    toast('Added To Your Cart.')
+    toast.success('Added To Your Cart.')
     return cartItems.map((item) =>
       item.id === newItem.id ? { ...item, qty: item.qty + 1 } : item,
     )
   }
-  toast('Added To Your Cart Successfully')
-  return [...cartItems, { ...newItem, qty: 1 }]
+
+  toast.success('Added To Your Cart Successfully')
+  return [...cartItems, { ...(newItem as unknown as ICart), qty: 1 }]
 }

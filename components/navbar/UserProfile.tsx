@@ -10,9 +10,11 @@ import {
 import { Home, LogOut, Settings, User } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Button } from '../ui/button'
 
 const UserProfile = () => {
+  const router = useRouter()
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
@@ -29,11 +31,11 @@ const UserProfile = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push('/')}>
           <Home />
           Home
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => router.push('/profile')}>
           <User />
           My Profile
         </DropdownMenuItem>
