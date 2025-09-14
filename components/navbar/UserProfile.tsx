@@ -11,10 +11,13 @@ import { Home, LogOut, Settings, User } from 'lucide-react'
 import { signOut } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useCartStore } from '../../store/cart.store'
 import { Button } from '../ui/button'
 
 const UserProfile = () => {
   const router = useRouter()
+  const removeCartItems = useCartStore((s) => s.removeCartItems)
+
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
@@ -44,7 +47,13 @@ const UserProfile = () => {
           Settings
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => signOut()} className='cursor-pointer'>
+        <DropdownMenuItem
+          onClick={() => {
+            removeCartItems()
+            signOut()
+          }}
+          className='cursor-pointer'
+        >
           <LogOut /> Sign Out
         </DropdownMenuItem>
       </DropdownMenuContent>

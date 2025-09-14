@@ -20,11 +20,13 @@ import {
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { axiosInstance } from '../../service/axiosInstance'
 import { registerSchema } from '../../validation'
 const Register = () => {
+  const router = useRouter()
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -38,6 +40,7 @@ const Register = () => {
     try {
       await axiosInstance.post('/register', values)
       toast.success('User registered successfully')
+      router.push('/signin')
     } catch (err) {
       const axiosErr = err as AxiosError<{ error: string }>
       toast.error(axiosErr.response?.data?.error ?? axiosErr.message)
@@ -45,7 +48,7 @@ const Register = () => {
   }
 
   return (
-    <section className='flex h-screen items-center justify-center pt-20'>
+    <section className='flex h-full items-start justify-center py-10 px-5'>
       <Card className='w-full max-w-md'>
         <CardHeader>
           <CardTitle>Register</CardTitle>

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Toaster } from 'sonner'
-import Navbar from '../components/navbar/Navbar'
+import { Navbar08 } from '../components/navbar/Nav'
 import { ThemeProvider } from '../components/theme-provider'
 import './globals.css'
+import Navbar from '../components/navbar/Navbar'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} container mx-auto min-h-screen antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased`}
         suppressHydrationWarning
       >
         <ThemeProvider
@@ -37,10 +38,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className='relative'>
-            <Navbar />
-          </div>
-          {children}
+          <Navbar />
+          {/* <Navbar08 /> */}
+          <main className='container mx-auto sm:px-6 md:px-8'>{children}</main>
         </ThemeProvider>
         <Toaster position='top-center' closeButton richColors />
       </body>
