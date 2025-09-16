@@ -29,7 +29,6 @@ export const getSearchedProducts = async (text: string) => {
       category: true,
     },
   })
-
 }
 
 export const getAllCategories = async () => {
@@ -45,9 +44,10 @@ export const getCategory = async (id: string) => {
 export const getProductsFromCategory = async (
   id: string,
   sort: 'asc' | 'desc' = 'asc',
-  itemsNumber?:number
+  itemsNumber?: number,
+  skip: number = 0,
 ) => {
-  return await prisma.product.findMany({
+  const products = await prisma.product.findMany({
     where: {
       categoryId: id,
     },
@@ -58,7 +58,11 @@ export const getProductsFromCategory = async (
       price: sort,
     },
     take: itemsNumber,
+    skip: skip,
   })
+  const total = await prisma.product.count({ where: { categoryId: id } })
+
+  return { products, total }
 }
 
 // export const addProduct = async()=>{

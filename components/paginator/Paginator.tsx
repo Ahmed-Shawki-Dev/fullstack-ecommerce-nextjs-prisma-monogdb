@@ -1,28 +1,59 @@
+'use client'
+
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import React from 'react'
 
-const Paginator = () => {
+interface PaginatorProps {
+  skip: number
+  take: number
+  total: number
+}
+
+const Paginator: React.FC<PaginatorProps> = ({ skip, take, total }) => {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const currentPage = Math.floor(skip / take) + 1
+  const totalPages = Math.ceil(total / take)
+
+  const updatePage = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('skip', ((page - 1) * take).toString())
+    params.set('take', take.toString())
+    router.push(`${pathname}?${params.toString()}`)
+  }
+
+  const handleNext = () => {
+    if (currentPage < totalPages) updatePage(currentPage + 1)
+  }
+
+  const handlePrevious = () => {
+    if (currentPage > 1) updatePage(currentPage - 1)
+  }
+
   return (
-    <Pagination>
-      <PaginationContent>
+    <Pagination className='flex items-center'>
+      <PaginationContent className='flex items-center space-x-2'>
         <PaginationItem>
-          <PaginationPrevious href='#' />
+          <PaginationPrevious onClick={handlePrevious} />
         </PaginationItem>
+
         <PaginationItem>
-          <PaginationLink href='#'>1</PaginationLink>
+          <div className='rounded px-4 py-1 font-medium'>
+            {`Items ${skip + 1} - ${Math.min(skip + take, total)} of ${total}`}
+          </div>
         </PaginationItem>
+
         <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href='#' />
+          <PaginationNext onClick={handleNext} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

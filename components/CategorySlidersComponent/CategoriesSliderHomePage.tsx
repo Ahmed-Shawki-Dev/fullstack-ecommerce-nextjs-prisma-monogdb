@@ -9,7 +9,7 @@ import { getProductsFromCategory } from '../../actions/product.actions'
 import ProductCard from '../product/ProductCard'
 
 export async function CategoriesSlider({ categoryId }: { categoryId: string }) {
-  const products = await getProductsFromCategory(categoryId, 'asc', 10)
+  const {products,total} = await getProductsFromCategory(categoryId, 'asc', 10)
 
   return (
     <Carousel className='w-full'>

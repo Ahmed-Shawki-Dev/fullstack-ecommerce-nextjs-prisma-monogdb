@@ -1,14 +1,12 @@
 import { getAllCategories } from '../actions/product.actions'
 import Categories from '../components/categoryComponents/Categories'
 import { CategoriesSlider } from '../components/CategorySlidersComponent/CategoriesSliderHomePage'
-import Paginator from '../components/paginator/Paginator'
 import PosterSlider from '../components/Posters/PosterSlider'
 export default async function Home() {
   const categories = await getAllCategories()
 
   return (
     <main className='w-full space-y-10 px-2 py-10 sm:px-0'>
-      <Paginator />
       <PosterSlider />
       <Categories />
       <section className='flex flex-col items-center space-y-20'>
