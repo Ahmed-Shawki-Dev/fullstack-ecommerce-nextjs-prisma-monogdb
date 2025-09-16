@@ -1,10 +1,9 @@
-'use client'
 import { Input } from '@/components/ui/input'
 import { SearchIcon } from 'lucide-react'
 
 export default function SearchBar() {
   return (
-    <form className='relative mx-auto w-full max-w-xs'>
+    <form className='relative mx-auto w-full max-w-xs' action={'/products'}>
       <Input
         name='search'
         className='peer h-8 ps-8 pe-10'

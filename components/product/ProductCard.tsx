@@ -3,15 +3,16 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
-import { IProduct } from '../../interfaces/products'
+import { IProduct } from '../../interfaces'
 import { useCartStore } from '../../store/cart.store'
+import { trimText } from '../../utils'
 import { Badge } from '../ui/badge'
 
 function ProductCard(product: IProduct) {
   const { thumbnail, title, description, price, categoryId, id } = product
   const addToCartDispatch = useCartStore((s) => s.addToCart)
   return (
-    <Card className='max-w-xs rounded-lg p-0'>
+    <Card className='max-w-xs rounded-lg p-0 w-full'>
       <CardHeader className='flex justify-center p-0'>
         <Link
           href={`/products/${id}`}
@@ -23,7 +24,7 @@ function ProductCard(product: IProduct) {
             alt={title}
             width={200}
             height={150}
-            className='h-full w-full rounded-t-lg object-cover object-center transition-transform hover:scale-110'
+            className='h-full w-full rounded-t-lg object-cover object-center transition-transform hover:scale-110 select-none'
           />
         </Link>
       </CardHeader>
@@ -34,7 +35,7 @@ function ProductCard(product: IProduct) {
           </h5>
         </Link>
         <p className='mb-2 text-sm text-gray-700 dark:text-gray-400'>
-          {description}
+          {trimText(description)}
         </p>
         <div className='flex items-center justify-between'>
           <p className='mb-2 font-semibold text-green-500'>{`$${price === undefined ? '0' : new Intl.NumberFormat('en-US').format(price)}`}</p>

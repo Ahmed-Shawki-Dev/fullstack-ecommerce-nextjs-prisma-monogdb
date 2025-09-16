@@ -12,7 +12,6 @@ import UserProfile from './UserProfile'
 
 const Navbar = async () => {
   const session = await getServerSession()
-  console.log(session)
   return (
     <nav className='mx-auto flex w-full flex-wrap items-center justify-evenly'>
       <div className='mx-auto flex h-full w-full items-center justify-evenly py-5'>

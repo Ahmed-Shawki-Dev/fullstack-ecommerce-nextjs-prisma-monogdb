@@ -12,7 +12,6 @@ const Cloudinary = () => {
         onSuccess={(result) => {
           const publicId = (result as UploadResult)?.info?.public_id
           const url = getCldImageUrl({ src: publicId as string })
-          console.log(url)
         }}
       >
         {({ open }) => {

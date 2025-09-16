@@ -14,7 +14,7 @@ import { navigationData } from '../../data'
 
 export default function NavigationMenuNavbar() {
   return (
-    <NavigationMenu viewport={false} className='w-full'>
+    <NavigationMenu viewport={false} className='w-full z-30'>
       <NavigationMenuList>
         {/* Home */}
         <NavigationMenuItem>

@@ -11,13 +11,13 @@ export const navigationData = {
     items: [
       {
         title: 'PC',
-        href: '/categories/pc',
+        href: '/categories/68c4930da9a813cc462bd10a',
         description: 'Desktops, gaming PCs, and accessories.',
         icon: MonitorIcon,
       },
       {
         title: 'Laptop',
-        href: '/categories/laptop',
+        href: '/categories/68c4930da9a813cc462bd10b',
         description: 'Portable laptops for work and gaming.',
         icon: LaptopIcon,
       },

@@ -2,7 +2,6 @@ import { getServerSession } from 'next-auth'
 
 const ProfilePage = async () => {
   const session = await getServerSession()
-  console.log(session?.user)
   return (
     <section className='pt-20'>
       <div className='overflow-hidden rounded-lg border shadow'>

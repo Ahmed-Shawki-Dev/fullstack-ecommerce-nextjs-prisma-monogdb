@@ -1,4 +1,4 @@
-import type { ICart } from '@/interfaces/products'
+import type { ICart } from '@/interfaces'
 
 export const addToCart = (toAddProduct: ICart, Products: ICart[]) => {
   const exists = Products.some((item) => item.id === toAddProduct.id)
@@ -13,3 +13,12 @@ export const addToCart = (toAddProduct: ICart, Products: ICart[]) => {
 
   return [...Products, { ...toAddProduct, qty: 1 }]
 }
+
+
+export const trimText = (text:string)=>{
+  if(text.length>30){
+    return `${text.slice(0, 31)}...`
+  }
+  return text
+}
+

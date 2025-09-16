@@ -47,7 +47,7 @@ const CartSheet = () => {
                     />
                     <div className='space-y-1'>
                       <div>{item.title}</div>
-                      <div className='text-primary/70 text-sm font-light'>
+                      <div className='text-sm font-light mb-2 text-gray-700 dark:text-gray-400'>
                         Quantity: {item.qty}
                       </div>
                       <Button

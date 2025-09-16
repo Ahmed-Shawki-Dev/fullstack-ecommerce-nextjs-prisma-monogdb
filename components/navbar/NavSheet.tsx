@@ -22,7 +22,7 @@ export const NavigationSheet = () => {
       <SheetTitle className='sr-only'>Navbar</SheetTitle>
 
       <SheetTrigger asChild>
-        <Button variant='link' size='icon' className='rounded-full'>
+        <Button variant='ghost'  size='icon' className='rounded-full text-foreground'>
           <Menu />
         </Button>
       </SheetTrigger>

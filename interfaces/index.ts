@@ -11,3 +11,11 @@ export interface IProduct {
 export interface ICart extends IProduct {
   qty: number
 }
+
+export interface ICategory {
+  id: string
+  title: string
+  thumbnail: string
+  createdAt: Date
+  updatedAt: Date
+}

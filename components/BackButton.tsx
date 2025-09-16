@@ -6,8 +6,10 @@ import { useRouter } from 'next/navigation'
 const BackButton = () => {
   const router = useRouter()
   return (
-    <div className='flex cursor-pointer space-x-2 text-primary/70' 
-    onClick={()=>router.back()}>
+    <div
+      className='flex cursor-pointer space-x-2'
+      onClick={() => router.back()}
+    >
       <ArrowLeft />
       Back
     </div>

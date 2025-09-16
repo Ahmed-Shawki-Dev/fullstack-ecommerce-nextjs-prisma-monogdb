@@ -1,4 +1,4 @@
-import { ICart } from '@/interfaces/products'
+import { ICart } from '@/interfaces'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { addToCart as addToCartUtil } from '../utils'
@@ -9,7 +9,6 @@ interface IProps {
   removeFromCart: (productId: string) => void
   removeCartItems: () => void
 }
-
 export const useCartStore = create<IProps>()(
   devtools(
     persist(
