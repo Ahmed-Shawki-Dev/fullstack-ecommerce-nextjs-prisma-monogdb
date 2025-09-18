@@ -1,8 +1,6 @@
 'use server'
 
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '../lib/prisma'
 
 export const getAllUsersAction = async () => {
   return await prisma.user.findMany()

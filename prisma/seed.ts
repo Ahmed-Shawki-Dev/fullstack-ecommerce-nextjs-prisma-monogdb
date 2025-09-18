@@ -1,24 +1,19 @@
-// import { PrismaClient } from '@prisma/client'
-// const prisma = new PrismaClient()
+import { prisma } from '../lib/prisma'
 
-// async function main() {
-//   await prisma.product.createMany({
-//     data: Array.from({ length: 20 }).map(() => ({
-//       title: 'Lenovo ThinkPad',
-//       description: 'Durable business laptop with long battery life.',
-//       price: 1400.0,
-//       stock: 18,
-//       thumbnail: '/images/laptop-1.webp',
-//       categoryId: '68c4930da9a813cc462bd10b',
-//     })),
-//   })
-// }
+async function main() {
+  await prisma.category.createMany({
+    data: {
+      title: 'PC',
+      thumbnail: '/images/pc.webp',
+    },
+  })
+}
 
-// main()
-//   .then(async () => {
-//     await prisma.$disconnect()
-//   })
-//   .catch(async (e) => {
-//     await prisma.$disconnect()
-//     process.exit(1)
-//   })
+main()
+  .then(async () => {
+    await prisma.$disconnect()
+  })
+  .catch(async (e) => {
+    await prisma.$disconnect()
+    process.exit(1)
+  })

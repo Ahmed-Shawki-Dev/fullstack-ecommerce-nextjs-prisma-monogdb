@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcrypt'
 import { NextRequest, NextResponse } from 'next/server'
-
-const prisma = new PrismaClient()
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,4 +19,4 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json({ error: 'Email already exists' }, { status: 400 })
   }
-} 
+}

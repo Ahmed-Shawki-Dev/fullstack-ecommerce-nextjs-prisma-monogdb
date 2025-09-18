@@ -1,0 +1,66 @@
+'use client'
+
+import { Input } from '@/components/ui/input'
+import { SearchIcon, X } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useRef, useState, useEffect } from 'react'
+
+export default function TableSearch({ text = '/products' }: { text?: string }) {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const initialSearch = searchParams.get('search') || ''
+  const [search, setSearch] = useState(initialSearch)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      if (search) {
+        router.push(`${text}?search=${encodeURIComponent(search)}`)
+      } else {
+        router.push(text)
+      }
+    }, 500)
+
+    return () => clearTimeout(handler)
+  }, [search, text, router])
+
+  const clearSearch = () => {
+    setSearch('')
+    router.push(text)
+    inputRef.current?.focus()
+  }
+
+  return (
+    <div className='mx-auto w-full max-w-xs'>
+      <div className='relative'>
+        <Input
+          ref={inputRef}
+          name='search'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className='peer h-8 ps-8 pe-10'
+          placeholder='Search'
+          type='search'
+          autoComplete='off'
+        />
+        <div className='text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-2'>
+          <SearchIcon size={16} />
+        </div>
+      </div>
+
+      {search && (
+        <div className='mt-3 flex items-center justify-center gap-2 text-xl font-bold'>
+          <span>{search}</span>
+          <button
+            type='button'
+            onClick={clearSearch}
+            className='text-muted-foreground hover:text-foreground'
+          >
+            <X size={20} />
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}

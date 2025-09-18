@@ -10,6 +10,7 @@ import {
 import Image from 'next/image'
 import { Fragment, useState } from 'react'
 import { FaCartPlus } from 'react-icons/fa'
+import { toast } from 'sonner'
 import { useCartStore } from '../../store/cart.store'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
@@ -47,13 +48,16 @@ const CartSheet = () => {
                     />
                     <div className='space-y-1'>
                       <div>{item.title}</div>
-                      <div className='text-sm font-light mb-2 text-gray-700 dark:text-gray-400'>
+                      <div className='mb-2 text-sm font-light text-gray-700 dark:text-gray-400'>
                         Quantity: {item.qty}
                       </div>
                       <Button
                         size={'xs'}
                         variant={'outline'}
-                        onClick={() => removeFromCart(item.id as string)}
+                        onClick={() => {
+                          removeFromCart(item.id as string)
+                          toast.success('Product Removed Successfully')
+                        }}
                       >
                         Remove
                       </Button>

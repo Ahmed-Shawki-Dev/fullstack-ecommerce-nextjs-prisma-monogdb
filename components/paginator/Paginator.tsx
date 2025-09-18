@@ -7,6 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
+import { ArrowLeftCircleIcon, ArrowRightCircle } from 'lucide-react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 
@@ -42,6 +43,13 @@ const Paginator: React.FC<PaginatorProps> = ({ skip, take, total }) => {
   return (
     <Pagination className='flex items-center'>
       <PaginationContent className='flex items-center space-x-2'>
+        <PaginationItem
+          onClick={() => updatePage(1)}
+          className='cursor-pointer'
+        >
+          <ArrowLeftCircleIcon />
+        </PaginationItem>
+
         <PaginationItem>
           <PaginationPrevious onClick={handlePrevious} />
         </PaginationItem>
@@ -54,6 +62,13 @@ const Paginator: React.FC<PaginatorProps> = ({ skip, take, total }) => {
 
         <PaginationItem>
           <PaginationNext onClick={handleNext} />
+        </PaginationItem>
+
+        <PaginationItem
+          onClick={() => updatePage(totalPages)}
+          className='cursor-pointer'
+        >
+          <ArrowRightCircle />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

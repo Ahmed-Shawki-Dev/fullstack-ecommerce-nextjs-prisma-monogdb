@@ -11,10 +11,10 @@ export default function NotFound() {
             404
           </h1>
           <p className='mb-4 text-3xl font-bold tracking-tight md:text-4xl'>
-            Something's missing.
+            Somethings missing.
           </p>
           <p className='mb-4 text-lg font-light'>
-            Sorry, we can't find that page. You'll find lots to explore on the
+            Sorry, we cant find that page. Youll find lots to explore on the
             home page.
           </p>
 

@@ -7,6 +7,7 @@ import { IProduct } from '../../interfaces'
 import { useCartStore } from '../../store/cart.store'
 import { trimText } from '../../utils'
 import { Badge } from '../ui/badge'
+import { toast } from 'sonner'
 
 function ProductCard(product: IProduct) {
   const { thumbnail, title, description, price, categoryId, id } = product
@@ -48,7 +49,10 @@ function ProductCard(product: IProduct) {
         <Button
           size='sm'
           className='w-full'
-          onClick={() => addToCartDispatch({ ...product, qty: 0 })}
+          onClick={() => {
+            addToCartDispatch({ ...product, qty: 0 })
+            toast.success("Product Added Successfully")
+          }}
         >
           Add To Cart
         </Button>

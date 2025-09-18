@@ -29,7 +29,7 @@ const footerLinks = [
 const Footer = () => {
   return (
     <>
-      <footer className='mt-20 border-t-[1px]'>
+      <footer className='mt-10 border-t-[1px]'>
         <div className='mx-auto max-w-(--breakpoint-xl)'>
           <div className='flex flex-col items-center justify-start py-12'>
             {/* Logo */}

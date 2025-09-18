@@ -1,14 +1,37 @@
 'use server'
-import { PrismaClient } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
+import z from 'zod'
+import { prisma } from '../lib/prisma'
+import { productSchema } from '../validation'
 
-const prisma = new PrismaClient()
-
-export const getAllProductsAction = async () => {
-  return await prisma.product.findMany({
+export const getAllProductsAction = async (
+  take?: number,
+  skip: number = 0,
+  text?: string,
+) => {
+  const products = await prisma.product.findMany({
+    skip,
+    take,
     include: {
       category: true,
     },
+    where: {
+      title: {
+        contains: text,
+        mode: 'insensitive',
+      },
+    },
   })
+  const total = await prisma.product.count({
+    where: {
+      title: {
+        contains: text,
+        mode: 'insensitive',
+      },
+    },
+  })
+
+  return { products, total }
 }
 
 export const getProduct = async (id: string) => {
@@ -65,10 +88,45 @@ export const getProductsFromCategory = async (
   return { products, total }
 }
 
-// export const addProduct = async()=>{
-//   return prisma.product.create({
-//     data:{
-//       description:
-//     }
-//   })
-// }
+export const addProductAction = async (data: z.infer<typeof productSchema>) => {
+  await prisma.product.create({
+    data: {
+      title: data.title,
+      description: data.description,
+      price: data.price,
+      stock: data.stock,
+      thumbnail: data.thumbnail,
+      categoryId: data.category,
+    },
+  })
+  revalidatePath('/dashboard')
+}
+
+export const deleteProductAction = async (id: string) => {
+  await prisma.product.delete({
+    where: {
+      id,
+    },
+  })
+  revalidatePath('/dashboard')
+}
+
+export const editProductAction = async (
+  id: string,
+  data: z.infer<typeof productSchema>,
+) => {
+  await prisma.product.update({
+    where: {
+      id,
+    },
+    data: {
+      title: data.title,
+      description: data.description,
+      price: data.price,
+      stock: data.stock,
+      thumbnail: data.thumbnail,
+      categoryId: data.category,
+    },
+  })
+  revalidatePath('/dashboard')
+}
