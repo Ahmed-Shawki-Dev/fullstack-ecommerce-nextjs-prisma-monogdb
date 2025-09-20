@@ -13,7 +13,7 @@ export default async function Home() {
       <PosterSlider />
       <Categories />
       <section className='flex flex-col items-center space-y-20'>
-        {categories.map((category) => {
+        {categories.categories.map((category) => {
           return (
             <div
               key={category.id}

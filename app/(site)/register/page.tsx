@@ -20,12 +20,13 @@ import {
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { registerSchema } from '../../../validation'
+import Cloudinary from '../../../components/product/cloudinary'
 import { axiosInstance } from '../../../service/axiosInstance'
-
+import { registerSchema } from '../../../validation'
 
 const Register = () => {
   const router = useRouter()
@@ -35,6 +36,7 @@ const Register = () => {
       name: '',
       email: '',
       password: '',
+      image: '/avatar.webp',
     },
   })
 
@@ -61,6 +63,31 @@ const Register = () => {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+              <FormField
+                control={form.control}
+                name='image'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Image</FormLabel>
+                    <FormControl>
+                      <div className='flex items-center gap-4'>
+                        <Cloudinary onUpload={(url) => field.onChange(url)} />
+                        {field.value && (
+                          <Image
+                            src={field.value || '/default.png'}
+                            alt='preview'
+                            className='h-12 w-12 rounded-full'
+                            width={50}
+                            height={50}
+                          />
+                        )}
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name='name'

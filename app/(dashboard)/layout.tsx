@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
 import { Toaster } from 'sonner'
 
 
@@ -9,15 +8,7 @@ import { SidebarInset, SidebarProvider } from '../../components/ui/sidebar'
 import { AppSidebar } from '../../components/app-sidebar'
 import { SiteHeader } from '../../components/site-header'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
 
 export const metadata: Metadata = {
   title: 'hazTech',
@@ -30,11 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased`}
-        suppressHydrationWarning
-      >
+
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
@@ -55,9 +42,8 @@ export default function RootLayout({
               <main className='p-3 sm:p-6 md:p-8'>{children}</main>
             </SidebarInset>
           </SidebarProvider>
-        </ThemeProvider>
         <Toaster position='top-center' closeButton richColors />
-      </body>
-    </html>
+        </ThemeProvider>
+
   )
 }

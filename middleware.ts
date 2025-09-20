@@ -14,9 +14,17 @@ export default withAuth(
     )
 
     // لو مش مسجل دخول وحاول يدخل صفحة محمية
-    if (!isAuth && isProtectedRoute) {
-      return NextResponse.redirect(new URL('/signin', request.url))
-    }
+if (isProtectedRoute) {
+  if (!token) {
+    return NextResponse.redirect(new URL('/signin', request.url))
+  }
+
+  if (token.email !== process.env.ALLOWED_EMAIL) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+}
+
+    
 
     // لو مسجل دخول وحاول يدخل صفحة الساين ان
     const publicAuthRoutes = ['/signin', '/register']

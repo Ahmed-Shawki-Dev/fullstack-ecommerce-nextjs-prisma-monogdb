@@ -1,7 +1,9 @@
 import { getServerSession } from 'next-auth'
+import Image from 'next/image'
 
 const ProfilePage = async () => {
   const session = await getServerSession()
+  console.log(session)
   return (
     <section className='pt-20'>
       <div className='overflow-hidden rounded-lg border shadow'>
@@ -13,6 +15,12 @@ const ProfilePage = async () => {
         </div>
         <div className='border-t px-4 py-5 sm:p-0'>
           <dl className='sm:divide-y'>
+            <div className='py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5'>
+              <dt className='text-sm font-medium'>Image</dt>
+              <dd className='mt-1 text-sm sm:col-span-2 sm:mt-0'>
+                <Image src={session?.user?.image as string} alt={session?.user?.name as string} width={60} height={60} className='rounded-full'/>
+              </dd>
+            </div>
             <div className='py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5'>
               <dt className='text-sm font-medium'>Full Name</dt>
               <dd className='mt-1 text-sm sm:col-span-2 sm:mt-0'>

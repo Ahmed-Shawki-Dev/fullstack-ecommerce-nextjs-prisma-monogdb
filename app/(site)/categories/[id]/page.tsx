@@ -1,19 +1,37 @@
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 
-import ProductsGrid from './ProductsGrid'
-import { getCategory, getProductsFromCategory } from '../../../../actions/product.actions'
+import {
+  getCategory,
+  getProductsFromCategory,
+} from '../../../../actions/product.actions'
 import FilterComponent from '../../../../components/filtering/FilterComponent'
-import SuspenseLoader from '../../../../components/ui/SuspenseLoader'
 import Paginator from '../../../../components/paginator/Paginator'
+import SuspenseLoader from '../../../../components/ui/SuspenseLoader'
+import ProductsGrid from './ProductsGrid'
+import { Metadata } from 'next'
 
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: { id: string } | Promise<{ id: string }>
+type Props = {
+  params: Promise<{ id: string }>
   searchParams: Promise<{ [key: string]: string }>
-}) {
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = (await params).id
+
+  const category = await getCategory(id)
+  if (!category) return {}
+
+  return {
+    title: `hazTech | ${category.title}`,
+    openGraph: {
+      title: category.title,
+      images: [{ url: category.thumbnail }],
+    },
+  }
+}
+
+export default async function Page({ params, searchParams }: Props) {
   const { id } = await params
   const sp = await searchParams
   const sortOrder = sp.sort === 'asc' || sp.sort === 'desc' ? sp.sort : 'asc'
@@ -21,7 +39,7 @@ export default async function Page({
   const takedItems = +sp.take || 15
 
   const category = await getCategory(id)
-  const { products, total } = await getProductsFromCategory(
+  const { total } = await getProductsFromCategory(
     id,
     sortOrder,
     takedItems,

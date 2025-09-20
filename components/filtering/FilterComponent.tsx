@@ -10,7 +10,7 @@ const FilterComponent = async () => {
       <div>
         <h3 className='mb-2 text-sm font-bold uppercase'>Product categories</h3>
         <div className='flex flex-col'>
-          {categories?.map((category) => (
+          {categories.categories?.map((category) => (
             <Link
               key={category.id}
               href={`/categories/${category.id}`}

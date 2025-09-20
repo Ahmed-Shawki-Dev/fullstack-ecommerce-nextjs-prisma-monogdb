@@ -1,19 +1,37 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getProduct } from '../../../../actions/product.actions'
 import BackButton from '../../../../components/BackButton'
 import AddToCartButton from '../../../../components/addToCartButton'
 
+type Props = {
+  params: Promise<{ id: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = (await params).id
+
+  // fetch post information
+  const product = await getProduct(id)
+  if (!product) return {}
+
+  return {
+    title: product.title,
+    description: product.description,
+    openGraph: {
+      title: product.title,
+      description: product.description,
+      images: [{ url: product.thumbnail }],
+    },
+  }
+}
 
 function isValidObjectId(id: string) {
   return /^[0-9a-fA-F]{24}$/.test(id)
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { id: string } | Promise<{ id: string }>
-}) {
+export default async function Page({ params }: Props) {
   const { id } = await params
 
   if (!isValidObjectId(id)) {

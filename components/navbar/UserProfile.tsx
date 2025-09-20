@@ -1,4 +1,3 @@
-'use client'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,23 +6,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Home, LogOut, Settings, User } from 'lucide-react'
-import { signOut } from 'next-auth/react'
+import { Home, LayoutDashboard, LogOut, User } from 'lucide-react'
+import { getServerSession } from 'next-auth'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { useCartStore } from '../../store/cart.store'
+import Link from 'next/link'
 import { Button } from '../ui/button'
 
-const UserProfile = () => {
-  const router = useRouter()
-  const removeCartItems = useCartStore((s) => s.removeCartItems)
-
+export default async function UserProfile() {
+  const session = await getServerSession()
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button size={'icon'} variant={'link'}>
+        <Button size='icon' variant='link'>
           <Image
-            src={'/avatar.webp'}
+            src={session?.user?.image as string}
             alt='avatar'
             width={40}
             height={40}
@@ -31,34 +27,41 @@ const UserProfile = () => {
           />
         </Button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push('/')}>
-          <Home />
-          Home
+
+        <DropdownMenuItem asChild>
+          <Link href='/profile'>
+            <User /> My Profile
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push('/profile')}>
-          <User />
-          My Profile
+
+        <DropdownMenuItem asChild>
+          <Link href='/'>
+            <Home /> Home
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Settings />
-          Settings
-        </DropdownMenuItem>
+
+        {session?.user?.email === process.env.ALLOWED_EMAIL ? (
+          <DropdownMenuItem asChild>
+            <Link href='/dashboard'>
+              <LayoutDashboard /> Dashboard
+            </Link>
+          </DropdownMenuItem>
+        ) : null}
+
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => {
-            removeCartItems()
-            signOut()
-          }}
-          className='cursor-pointer'
-        >
-          <LogOut /> Sign Out
+
+        <DropdownMenuItem asChild>
+          <form action='/api/auth/signout' method='post'>
+            <button type='submit' className='flex w-full items-center gap-2'>
+              <LogOut /> Sign Out
+            </button>
+          </form>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
 }
-
-export default UserProfile

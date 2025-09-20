@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 
 import {
@@ -10,11 +8,14 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
+import { getAllCategories } from '../../actions/product.actions'
 import { navigationData } from '../../data'
+import Image from 'next/image'
 
-export default function NavigationMenuNavbar() {
+export default async function NavigationMenuNavbar() {
+  const categories = await getAllCategories()
   return (
-    <NavigationMenu viewport={false} className='w-full z-30'>
+    <NavigationMenu viewport={false} className='z-30 w-full'>
       <NavigationMenuList>
         {/* Home */}
         <NavigationMenuItem>
@@ -50,21 +51,18 @@ export default function NavigationMenuNavbar() {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className='grid w-[300px] gap-2 p-2'>
-              {navigationData.categories.items.map((item) => (
-                <li key={item.title}>
+              {categories.categories.map((category) => (
+                <li key={category.title}>
                   <NavigationMenuLink asChild>
                     <Link
-                      href={item.href}
-                      className='hover:bg-accent flex items-center justify-center gap-2 rounded-md p-2'
+                      href={`/categories/${category.id}`}
+                      className='hover:bg-accent flex  justify-center items-start gap-2 rounded-md p-2'
                     >
                       <div>
                         <div className='flex items-center space-x-1'>
-                          <item.icon className='h-4 w-4' />
-                          <div className='font-medium'>{item.title}</div>
+                          <Image src={category.thumbnail as string} alt={category.title} width={20} height={20} className='rounded-full'/>
+                          <div className='font-medium'>{category.title}</div>
                         </div>
-                        <p className='text-muted-foreground text-sm'>
-                          {item.description}
-                        </p>
                       </div>
                     </Link>
                   </NavigationMenuLink>

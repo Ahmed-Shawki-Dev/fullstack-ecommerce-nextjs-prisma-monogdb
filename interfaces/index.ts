@@ -13,9 +13,9 @@ export interface ICart extends IProduct {
 }
 
 export interface ICategory {
-  id: string
+  id?: string
   title: string
   thumbnail: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }

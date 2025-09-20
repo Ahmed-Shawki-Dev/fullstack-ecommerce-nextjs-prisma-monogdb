@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  IconCategory,
   IconChartBar,
   IconDashboard,
   IconSearch,
@@ -21,30 +22,35 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar'
-import { Logo } from './navbar/logo'
 import Link from 'next/link'
+import { Logo } from './navbar/logo'
 
 const data = {
   user: {
     name: 'Ahmed Shawki',
-    email: 'ahmed@gmail.com',
+    email: 'admin@haztech.info',
     avatar: '/avatars/shadcn.jpg',
   },
   navMain: [
     {
-      title: 'Dashboard',
+      title: 'Analytics',
+      url: '/dashboard/analytics',
+      icon: IconChartBar,
+    },
+    {
+      title: 'Products',
       url: '/dashboard',
       icon: IconDashboard,
+    },
+    {
+      title: 'Categories',
+      url: '/dashboard/categories',
+      icon: IconCategory,
     },
     {
       title: 'Users',
       url: '/dashboard/users',
       icon: IconUsers,
-    },
-    {
-      title: 'Analytics',
-      url: '/dashboard/analytics',
-      icon: IconChartBar,
     },
   ],
   navSecondary: [
