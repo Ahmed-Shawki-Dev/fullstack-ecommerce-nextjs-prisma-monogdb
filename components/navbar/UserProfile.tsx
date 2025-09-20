@@ -19,7 +19,7 @@ export default async function UserProfile() {
       <DropdownMenuTrigger asChild>
         <Button size='icon' variant='link'>
           <Image
-            src={session?.user?.image as string}
+            src={session?.user?.image || '/avatar.webp'}
             alt='avatar'
             width={40}
             height={40}
