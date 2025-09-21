@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
+import Image from 'next/image'
+import Link from 'next/link'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 export type LogoItem =
@@ -299,7 +301,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             {(item as any).node}
           </span>
         ) : (
-          <img
+          <Image
             className={cx(
               'block h-[var(--logoloop-logoHeight)] w-auto object-contain',
               'pointer-events-none [-webkit-user-drag:none]',
@@ -309,10 +311,9 @@ export const LogoLoop = React.memo<LogoLoopProps>(
                 'transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover/item:scale-120',
             )}
             src={(item as any).src}
-            srcSet={(item as any).srcSet}
             sizes={(item as any).sizes}
-            width={(item as any).width}
-            height={(item as any).height}
+            width={48}
+            height={48}
             alt={(item as any).alt ?? ''}
             title={(item as any).title}
             loading='lazy'
@@ -327,7 +328,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
         const inner = (item as any).href ? (
           <div className='p-2 md:p-3'>
-            <a
+            <Link
               className={cx(
                 'inline-flex items-center rounded no-underline',
                 'transition-opacity duration-200 ease-linear',
@@ -340,7 +341,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
               rel='noreferrer noopener'
             >
               {content}
-            </a>
+            </Link>
           </div>
         ) : (
           content

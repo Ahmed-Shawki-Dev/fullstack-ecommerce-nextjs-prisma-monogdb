@@ -1,9 +1,7 @@
-import { getAllCategories } from "../../actions/product.actions"
-import Categories from "../../components/categoryComponents/Categories"
-import { CategoriesSlider } from "../../components/CategorySlidersComponent/CategoriesSliderHomePage"
-import Companies from "../../components/Companies/Companies"
-import PosterSlider from "../../components/Posters/PosterSlider"
-
+import { getAllCategories } from '../../actions/product.actions'
+import Categories from '../../components/categoryComponents/Categories'
+import { CategoriesSlider } from '../../components/CategorySlidersComponent/CategoriesSliderHomePage'
+import PosterSlider from '../../components/Posters/PosterSlider'
 
 export default async function Home() {
   const categories = await getAllCategories()
@@ -26,7 +24,7 @@ export default async function Home() {
             </div>
           )
         })}
-        <Companies />
+        {/* <Companies /> */}
       </section>
     </main>
   )

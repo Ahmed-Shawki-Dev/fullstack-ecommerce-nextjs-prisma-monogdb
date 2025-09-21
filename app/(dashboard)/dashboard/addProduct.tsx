@@ -68,7 +68,7 @@ setLoading(false)
   const [loading,setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   return (
-    <Dialog open={open} onOpenChange={setOpen} modal={false}>
+    <Dialog open={open} onOpenChange={setOpen} modal={false} >
       <DialogTrigger asChild>
         <Button variant={'outline'}>
           <PlusCircle />
@@ -84,15 +84,11 @@ setLoading(false)
       >
         <DialogHeader>
           <DialogTitle>Add A Product</DialogTitle>
-          <DialogDescription>
-            Fill in the product details below to add a new item to your store.
-            You can edit or update this information later if needed.
-          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='w-2/3 space-y-6'
+            className=' space-y-6 w-full'
           >
             <FormField
               control={form.control}
