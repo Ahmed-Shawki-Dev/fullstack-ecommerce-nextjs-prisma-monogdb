@@ -16,11 +16,6 @@ const data = {
       mobile: '/images/p1m.webp',
     },
     {
-      id: 3,
-      pc: '/images/p3.webp',
-      mobile: '/images/p3m.webp',
-    },
-    {
       id: 4,
       pc: '/images/p4.webp',
       mobile: '/images/p4m.webp',
@@ -39,10 +34,10 @@ export default function PosterSlider() {
       ]}
     >
       <CarouselContent className='p-0'>
-        {data.covers.map((cover) => (
+        {data.covers.map((cover, idx) => (
           <CarouselItem key={cover.id}>
             <Card className='rounded-xl p-0'>
-              <CardContent className='relative h-100 w-full p-0 lg:h-130'>
+              <CardContent className='relative aspect-square w-full p-0 lg:aspect-[4/1]'>
                 <picture>
                   <source media='(max-width: 640px)' srcSet={cover.mobile} />
                   <source media='(min-width: 641px)' srcSet={cover.pc} />
@@ -50,6 +45,10 @@ export default function PosterSlider() {
                     src={cover.pc}
                     alt='Cover'
                     className='h-full w-full rounded-xl object-cover select-none'
+                    {...(idx === 0 && {
+                      loading: 'eager',
+                      fetchPriority: 'high',
+                    })}
                   />
                 </picture>
               </CardContent>

@@ -5,19 +5,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { getProductsFromCategory } from '../../actions/product.actions'
+import { IProduct } from '../../interfaces'
 import ProductCard from '../product/ProductCard'
 
-export async function CategoriesSlider({ categoryId }: { categoryId: string }) {
-  const {products,total} = await getProductsFromCategory(categoryId, 'asc', 10)
-
+export async function CategoriesSlider({ products }: { products: IProduct[] }) {
   return (
     <Carousel className='w-full'>
       <CarouselContent className='flex'>
         {products.map((product) => (
           <CarouselItem
             key={product.id}
-            className='flex basis-full justify-center sm:basis-1/2 lg:basis-1/4  '
+            className='flex basis-full justify-center sm:basis-1/2 lg:basis-1/4'
           >
             <ProductCard
               key={product.id}
@@ -26,7 +24,7 @@ export async function CategoriesSlider({ categoryId }: { categoryId: string }) {
               description={product?.description}
               price={product?.price}
               stock={product?.stock}
-              categoryId={product?.category.title}
+              categoryId={product?.categoryId}
               id={product?.id}
             />
           </CarouselItem>

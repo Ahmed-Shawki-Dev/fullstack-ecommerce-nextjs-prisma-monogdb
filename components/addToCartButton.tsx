@@ -1,4 +1,5 @@
 'use client'
+import { toast } from 'sonner'
 import { useCartStore } from '../store/cart.store'
 import { Button } from './ui/button'
 
@@ -23,7 +24,10 @@ const AddToCartButton = ({
     <Button
       size='lg'
       className='w-fit'
-      onClick={() => addToCartDispatch({ ...product, qty: 0 })}
+      onClick={() => {
+        addToCartDispatch({ ...product, qty: 0 })
+        toast.success('Product Added Successfully')
+      }}
     >
       Add To Cart
     </Button>

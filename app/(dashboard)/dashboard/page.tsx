@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { getAllCategories } from '../../../actions/product.actions'
+import Companies from '../../../components/Companies/Companies'
 import SuspenseLoader from '../../../components/ui/SuspenseLoader'
 import AddProductModal from './addProduct'
 import { ProductsTable } from './products-table'

@@ -9,12 +9,12 @@ import {
 } from '@/components/ui/sheet'
 import Image from 'next/image'
 import { Fragment, useState } from 'react'
-import { FaCartPlus } from 'react-icons/fa'
 import { toast } from 'sonner'
 import { useCartStore } from '../../store/cart.store'
 import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 import Cart from './Cart'
+import { IconShoppingCartOff } from '@tabler/icons-react'
 
 const CartSheet = () => {
   const cart = useCartStore((s) => s.cart)
@@ -78,7 +78,7 @@ const CartSheet = () => {
           })
         ) : (
           <div className='flex h-full flex-col items-center justify-center space-y-5'>
-            <FaCartPlus className='text-primary/30 h-20 w-40' />
+            <IconShoppingCartOff className='text-primary/30 h-20 w-40' />
             <div className='font-semibold'>No products in the cart.</div>
           </div>
         )}

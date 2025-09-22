@@ -1,4 +1,4 @@
-import { TbDatabaseX } from 'react-icons/tb'
+import { IconDatabaseOff } from '@tabler/icons-react'
 import { getSearchedProducts } from '../../../actions/product.actions'
 import FilterComponent from '../../../components/filtering/FilterComponent'
 import ProductCard from '../../../components/product/ProductCard'
@@ -16,7 +16,7 @@ export default async function SearchPage({
       {products.length === 0 ? (
         <div className='w-full'>
           <h3 className='col-span-full flex flex-col items-center justify-center space-y-2 py-20 text-center text-xl font-medium text-gray-500'>
-            <TbDatabaseX className='h-15 w-15' />
+            <IconDatabaseOff className='h-15 w-15' />
             <span>Search Not Found</span>
           </h3>
         </div>

@@ -1,62 +1,48 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
+import { toast } from 'sonner'
 import { IProduct } from '../../interfaces'
 import { useCartStore } from '../../store/cart.store'
 import { trimText } from '../../utils'
-import { Badge } from '../ui/badge'
-import { toast } from 'sonner'
 
 function ProductCard(product: IProduct) {
-  const { thumbnail, title, description, price, categoryId, id } = product
+  const { thumbnail, title, description, price, id } = product
   const addToCartDispatch = useCartStore((s) => s.addToCart)
   return (
-    <Card className='max-w-xs rounded-lg p-0 w-full'>
-      <CardHeader className='flex justify-center p-0'>
-        <Link
-          href={`/products/${id}`}
-          passHref
-          className='h-60 w-full overflow-hidden rounded-t-lg'
-        >
-          <Image
-            src={thumbnail}
-            alt={title}
-            width={200}
-            height={150}
-            className='h-full w-full rounded-t-lg object-cover object-center transition-transform hover:scale-110 select-none'
-          />
-        </Link>
-      </CardHeader>
-      <CardContent className=''>
-        <Link href={`/products/${id}`} passHref>
-          <h5 className='mb-1 text-lg font-semibold tracking-tight text-gray-900 dark:text-white'>
-            {title}
-          </h5>
-        </Link>
-        <p className='mb-2 text-sm text-gray-700 dark:text-gray-400'>
-          {trimText(description)}
-        </p>
-        <div className='flex items-center justify-between'>
-          <p className='mb-2 font-semibold text-green-500'>{`$${price === undefined ? '0' : new Intl.NumberFormat('en-US').format(price)}`}</p>
-          <Badge asChild className='rounded-full' variant={'outline'}>
-            <p>{categoryId}</p>
-          </Badge>
+    <Card className='p-0'>
+      <CardContent className='p-2 md:p-3'>
+        <div className='grid gap-4'>
+          <Link href={`/products/${id}`} passHref>
+            <Image
+              src={thumbnail}
+              alt='Sneakers'
+              width={400}
+              height={400}
+              className='aspect-square overflow-hidden rounded-lg border object-cover '
+            />
+          </Link>
+          <div className='grid gap-1.5'>
+            <h3 className='text-lg font-bold'>{title}</h3>
+            <p className='text-sm leading-none'>{trimText(description)}</p>
+          </div>
+          <div className='flex items-center justify-between'>
+            <p className='font-bold text-green-500'>{`$${price === undefined ? '0' : new Intl.NumberFormat('en-US').format(price)}`}</p>
+          </div>
         </div>
-      </CardContent>
-      <CardFooter className='p-3 pt-0'>
         <Button
-          size='sm'
-          className='w-full'
+          size='default'
+          className='mt-2 w-full'
           onClick={() => {
             addToCartDispatch({ ...product, qty: 0 })
-            toast.success("Product Added Successfully")
+            toast.success('Product Added Successfully')
           }}
         >
           Add To Cart
         </Button>
-      </CardFooter>
+      </CardContent>
     </Card>
   )
 }

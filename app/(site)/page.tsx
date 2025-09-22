@@ -1,17 +1,28 @@
-import { getAllCategories } from '../../actions/product.actions'
+import {
+  getAllCategories,
+  getProductsFromCategory,
+} from '../../actions/product.actions'
 import Categories from '../../components/categoryComponents/Categories'
 import { CategoriesSlider } from '../../components/CategorySlidersComponent/CategoriesSliderHomePage'
+import Companies from '../../components/Companies/Companies'
 import PosterSlider from '../../components/Posters/PosterSlider'
 
 export default async function Home() {
-  const categories = await getAllCategories()
+  const categoriesData = await getAllCategories()
+
+  const productPromises = categoriesData.categories.map((category) =>
+    getProductsFromCategory(category.id, 'asc', 10),
+  )
+
+  const allProductsData = await Promise.all(productPromises)
 
   return (
     <main className='w-full space-y-10 px-2 py-10 sm:px-0'>
       <PosterSlider />
       <Categories />
       <section className='flex flex-col items-center space-y-20'>
-        {categories.categories.map((category) => {
+        {categoriesData.categories.map((category, index) => {
+          const productsForCategory = allProductsData[index].products
           return (
             <div
               key={category.id}
@@ -20,12 +31,14 @@ export default async function Home() {
               <h3 className='text-center text-4xl font-semibold'>
                 {category.title}
               </h3>
-              <CategoriesSlider categoryId={category.id} />
+              <CategoriesSlider products={productsForCategory} />
             </div>
           )
         })}
-        {/* <Companies /> */}
+        <Companies />
       </section>
     </main>
   )
 }
+
+
