@@ -1,3 +1,5 @@
+// app/api/auth/[...nextauth]/route.ts
+
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import bcrypt from 'bcrypt'
 import NextAuth, { type AuthOptions } from 'next-auth'
