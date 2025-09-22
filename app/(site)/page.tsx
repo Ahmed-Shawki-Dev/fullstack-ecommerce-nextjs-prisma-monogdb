@@ -4,7 +4,6 @@ import {
 } from '../../actions/product.actions'
 import Categories from '../../components/categoryComponents/Categories'
 import { CategoriesSlider } from '../../components/CategorySlidersComponent/CategoriesSliderHomePage'
-import Companies from '../../components/Companies/Companies'
 import PosterSlider from '../../components/Posters/PosterSlider'
 
 export default async function Home() {
@@ -35,10 +34,8 @@ export default async function Home() {
             </div>
           )
         })}
-        <Companies />
       </section>
+      
     </main>
   )
 }
-
-

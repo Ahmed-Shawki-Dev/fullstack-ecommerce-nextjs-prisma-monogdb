@@ -1,5 +1,4 @@
 'use client'
-
 import { Input } from '@/components/ui/input'
 import { SearchIcon, X } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -10,24 +9,25 @@ export default function TableSearch({ text = '/products' }: { text?: string }) {
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const initialSearch = searchParams.get('search') || ''
-  const [search, setSearch] = useState(initialSearch)
+  const [search, setSearch] = useState(() => {
+    return searchParams.get('search') || ''
+  })
 
   useEffect(() => {
     const handler = setTimeout(() => {
+      const newSearchParams = new URLSearchParams(searchParams.toString())
       if (search) {
-        router.push(`${text}?search=${encodeURIComponent(search)}`)
+        newSearchParams.set('search', search)
       } else {
-        router.push(text)
+        newSearchParams.delete('search')
       }
+      router.replace(`${text}?${newSearchParams.toString()}`)
     }, 500)
-
     return () => clearTimeout(handler)
-  }, [search, text, router])
+  }, [search, text]) // هنا الـ dependencies الصحيحة
 
   const clearSearch = () => {
     setSearch('')
-    router.push(text)
     inputRef.current?.focus()
   }
 
@@ -48,7 +48,6 @@ export default function TableSearch({ text = '/products' }: { text?: string }) {
           <SearchIcon size={16} />
         </div>
       </div>
-
       {search && (
         <div className='mt-3 flex items-center justify-center gap-2 text-xl font-bold'>
           <span>{search}</span>
