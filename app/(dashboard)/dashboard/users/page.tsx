@@ -7,7 +7,6 @@ import { UsersTable } from './users-table'
 export default async function Page({
   searchParams,
 }: {
-  params: { id: string } | Promise<{ id: string }>
   searchParams: Promise<{ [key: string]: string }>
 }) {
   const sp = await searchParams
