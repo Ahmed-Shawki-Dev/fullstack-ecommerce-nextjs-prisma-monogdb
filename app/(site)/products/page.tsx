@@ -6,10 +6,11 @@ import ProductCard from '../../../components/product/ProductCard'
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: { [key: string]: string }
+  searchParams: Promise<{ [key: string]: string }>
 }) {
-  const search = searchParams.search
-  const products = await getSearchedProducts(search)
+  const sp = await searchParams
+  const searchedItems = sp.search || ''
+  const products = await getSearchedProducts(searchedItems)
 
   return (
     <main className='flex space-y-10 px-2 py-10 sm:px-0'>

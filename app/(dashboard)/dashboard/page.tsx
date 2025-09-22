@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
 import { getAllCategories } from '../../../actions/product.actions'
-import Companies from '../../../components/Companies/Companies'
 import SuspenseLoader from '../../../components/ui/SuspenseLoader'
 import AddProductModal from './addProduct'
 import { ProductsTable } from './products-table'
@@ -9,7 +8,6 @@ import TableSearch from './table-search'
 export default async function Page({
   searchParams,
 }: {
-  params: { id: string } | Promise<{ id: string }>
   searchParams: Promise<{ [key: string]: string }>
 }) {
   const categories = await getAllCategories()
