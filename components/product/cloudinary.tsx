@@ -1,4 +1,3 @@
-// Cloudinary.tsx
 'use client'
 import { CldUploadWidget, getCldImageUrl } from 'next-cloudinary'
 import { Button } from '../ui/button'
@@ -15,6 +14,12 @@ const Cloudinary = ({ onUpload }: CloudinaryProps) => {
   return (
     <CldUploadWidget
       signatureEndpoint={'/api/sign-image'}
+      options={{
+        sources: ['local', 'url', 'camera'],
+        resourceType: 'image',
+        clientAllowedFormats: ['jpg', 'jpeg', 'png', 'webp'],
+        multiple: false,
+      }}
       onSuccess={(result) => {
         const publicId = (result as UploadResult)?.info?.public_id
         if (publicId) {

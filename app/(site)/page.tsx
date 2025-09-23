@@ -1,3 +1,4 @@
+export const revalidate = 3600
 import {
   getAllCategories,
   getProductsFromCategory,
@@ -35,7 +36,6 @@ export default async function Home() {
           )
         })}
       </section>
-      
     </main>
   )
 }
