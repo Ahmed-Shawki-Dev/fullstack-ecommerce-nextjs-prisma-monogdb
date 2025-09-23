@@ -1,4 +1,3 @@
-import { getServerSession } from 'next-auth'
 import Link from 'next/link'
 import { ModeToggle } from '../ModeToggle'
 import { Separator } from '../ui/separator'
@@ -9,19 +8,19 @@ import { NavigationSheet } from './NavSheet'
 import SearchBar from './Search'
 import SignIn from './SignIn'
 import UserProfile from './UserProfile'
+import { getCachedSession } from '@/lib/auth'
 
 const Navbar = async () => {
-  const session = await getServerSession()
+  const session = await getCachedSession()
+
   return (
     <nav className='mx-auto flex w-full flex-wrap items-center justify-evenly'>
       <div className='mx-auto flex h-full w-full items-center justify-evenly py-5'>
-        <Link href={'/'}>
+        <Link href={'/'} >
           <Logo />
         </Link>
-        <div>
-          <div className='hidden lg:block'>
-            <SearchBar />
-          </div>
+        <div className='hidden lg:block'>
+          <SearchBar />
         </div>
         <div className='flex items-center gap-2'>
           <CartSheet />

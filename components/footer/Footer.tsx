@@ -9,7 +9,6 @@ const Footer = () => {
     <>
       <footer className='mt-10 border-t-[1px]'>
         <div className='mx-auto flex max-w-7xl gap-4 flex-col lg:flex-row items-center justify-between px-6 py-8'>
-          {/* Logo + Copyright */}
           <div className='flex items-center flex-col lg:flex-row  gap-4'>
             <Logo />
             <span className='text-muted-foreground'>

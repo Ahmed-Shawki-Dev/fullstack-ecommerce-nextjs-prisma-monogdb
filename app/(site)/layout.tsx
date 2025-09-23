@@ -7,6 +7,7 @@ import Footer from '../../components/footer/Footer'
 import Navbar from '../../components/navbar/Navbar'
 import { ThemeProvider } from '../../components/theme-provider'
 import '../global.css'
+import ScrollToTop from '../../components/ScrollToUp'
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -40,6 +41,7 @@ export default function RootLayout({
         <main className='container mx-auto flex-grow'>{children}</main>
         <Footer />
         <Toaster position='top-center' closeButton richColors />
+        <ScrollToTop/>
       </div>
     </ThemeProvider>
   )
